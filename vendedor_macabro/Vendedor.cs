@@ -10,8 +10,9 @@ using System.Windows.Forms;
 
 namespace vendedor_macabro
 {
-    public partial class Form1 : Form
+    public partial class Vendedor : Form
     {
+        //inicializaciones
         int ctdVentas = 0;
         int cantArticulos = 0;
         int articulosMayores = 0;
@@ -20,7 +21,7 @@ namespace vendedor_macabro
         double monto = 0;
         double porcentaje = 0;
         bool bandera = false;
-        public Form1()
+        public Vendedor()
         {
             InitializeComponent();
 
@@ -33,14 +34,23 @@ namespace vendedor_macabro
 
         private void btnLoad_Click(object sender, EventArgs e)
         {
-            int nroVenta = Convert.ToInt32(txtVent.Text);
-            double precio = Convert.ToDouble(txtPrice.Text);
-            int cantidad = Convert.ToInt32(txtCant.Text);
+            //int nroVenta = Convert.ToInt32(txtVent.Text);
+            //double precio = Convert.ToDouble(txtPrice.Text);
+            //int cantidad = Convert.ToInt32(txtCant.Text);
+
+            Venta venta = new Venta();
+
+            venta.Codigo = txtVent.Text;
+            venta.Nombre = txtArt.Text;
+            venta.Precio = Convert.ToDouble(txtPrice.Text);
+            venta.Unidades = Convert.ToInt32(txtCant.Text);
 
 
             ctdVentas = ctdVentas + 1;
 
-            monto = precio * cantidad;
+            //monto = precio * cantidad;
+
+            monto = venta.calcularMonto();
 
             montoTotal = montoTotal + monto;
 
@@ -52,13 +62,13 @@ namespace vendedor_macabro
             lblResProm.Text = promedio.ToString();
 
 
-            cantArticulos = cantArticulos + cantidad;
+            cantArticulos = cantArticulos + venta.Unidades;
 
 
-
-            for (int i = 0; i < cantidad; i++)
+            //calculo y muestreo de porcentaje
+            for (int i = 0; i < venta.Unidades; i++)
             {
-                if (precio > 100)
+                if (venta.Precio > 100)
                 {
                     articulosMayores++;
                 }
@@ -69,7 +79,7 @@ namespace vendedor_macabro
 
 
 
-
+            //calculo y muestreo del menor monto
             if (bandera)
             {
                 if (monto < menorMonto)

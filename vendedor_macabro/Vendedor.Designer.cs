@@ -1,6 +1,6 @@
 ﻿namespace vendedor_macabro
 {
-    partial class Form1
+    partial class Vendedor
     {
         /// <summary>
         /// Variable del diseñador necesaria.
